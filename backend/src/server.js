@@ -1,0 +1,165 @@
+const app = require('express')();
+const cors = require('cors');
+const os = require('os');
+const { deserialize } = require('v8');
+require('dotenv').config();
+app.use(cors());
+
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  console.log('GET /');
+  res.json({
+    message: `Hello AWS Copilot from ${os.hostname()}`,
+  });
+});
+
+app.get('/api/1.0/certifications', (req, res) => {
+  return res.json({
+    data: [
+      {
+        title: 'AWS Certified Cloud Practitioner',
+        level: 'Foundational',
+        code: 'CLF-C02',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Cloud-Practitioner_badge.634f8a21af2e0e956ed8905a72366146ba22b74c.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-cloud-practitioner/',
+        description:
+          'AWS Certified Cloud Practitioner 將考核應試人員對 AWS 雲端、服務和術語的基本、高層級理解。 對於先前無 IT 或雲端經驗，但想要改為從事雲端職業的人員來說，或者對於希望培養基礎雲端素養的企業營運員工來說，這是開啟 AWS Certification 之旅的良好起點。',
+      },
+      {
+        title: 'AWS Certified AI Practitioner',
+        level: 'Foundational',
+        code: 'ALF-C01',
+        image:
+          'https://d1.awsstatic.com/certification/badges/AWS-Certified-AI-Practitioner-beta_badge_300x300.82e5d47ff016932131792440869f1eaa1e5a3060.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-ai-practitioner/',
+        description:
+          'AWS Certified AI Practitioner validates in-demand knowledge of artificial intelligence (AI), machine learning (ML), and generative AI concepts and use cases. Sharpen your competitive edge and position yourself for career growth and higher earnings. Be among the first to earn this new certification when registration opens on August 13, 2024.',
+      },
+      {
+        title: 'Solutions Architect - Associate',
+        level: 'Associate',
+        code: 'SAA-C03',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Solutions-Architect-Associate_badge.3419559c682629072f1eb968d59dea0741772c0f.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-solutions-architect-associate/',
+        description:
+          'AWS Certified Solutions Architect - Associate 可展示廣泛 AWS 服務中的 AWS 技術知識和技能。此認證的重點是設計成本和效能最佳化的解決方案，展現出對 AWS Well-Architected Framework 的深刻理解。此認證可以提高獲得認證人員的職業形象和收入，並在利益相關者和客戶的互動中增加對您的可信度和信任度。',
+      },
+      {
+        title: 'SysOps Administrator - Associate',
+        level: 'Associate',
+        code: 'SOA-C02',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-SysOps-Administrator-Associate_badge.c3586b02748654fb588633314dd66a1d6841893b.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-sysops-admin-associate/',
+        description:
+          '該憑證可協助組織確定和培養具有實作雲端計劃所需關鍵技能的人才。獲得 AWS Certified SysOps Administrator – Associate 可驗證在 AWS 上部署、管理和操作工作負載方面的經驗。',
+      },
+      {
+        title: 'Developer - Associate',
+        level: 'Associate',
+        code: 'DVA-C02',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Developer-Associate_badge.5c083fa855fe82c1cf2d0c8b883c265ec72a17c0.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-developer-associate/',
+        description:
+          'AWS Certified Developer - Associate 可展現您認識和了解核心的 AWS 服務、用法和基本的 AWS 架構最佳實務，並可熟練地使用 AWS 來開發、部署和偵錯雲端型應用程式。準備並獲得此認證可讓獲得認證的個人更有信心和信譽。擁有 AWS 認證開發人員的組織可以保證擁有合適的人才，賦予組織競爭優勢並確保利害關係人和客戶的滿意度。',
+      },
+      {
+        title: 'Data Engineer - Associate',
+        level: 'Associate',
+        code: 'DEA-C01',
+        image:
+          'https://d1.awsstatic.com/certification/badges/AWS-Certified-Data-Engineer-Associate_badge_300x300.a231ff0ff32a28adf061d3f7fa36564964b4a4b5.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-data-engineer-associate/',
+        description:
+          'AWS Certified Data Engineer – Associate 可驗證應試人員在核心資料相關之 AWS 服務領域的技術和知識，以及他們是否有能力擷取和轉換資料、在套用程式設計概念時協調資料管道、設計資料模型、管理資料生命週期並確保資料品質。',
+      },
+      {
+        title: 'Machine Learning Engineer - Associate',
+        level: 'Associate',
+        code: 'MLA-C01',
+        image:
+          'https://d1.awsstatic.com/certification/badges/AWS-Certified-Machine-Learning-Engineer-Associate-beta_badge_300x300.e5b7f4889cd9e7d9acf67e82f5a5473f6cda62e0.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-machine-learning-engineer-associate/',
+        description:
+          'AWS Certified Machine Learning Engineer - Associate validates technical ability to implement ML workloads in production and operationalizing them. Boost your career profile and credibility, and position yourself for in-demand machine learning job roles. Be among the first to earn this new certification when registration opens on August 13, 2024.',
+      },
+      {
+        title: 'Solution Architect - Professional',
+        level: 'Professional',
+        code: 'SAP-C02',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Solutions-Architect-Professional_badge.69d82ff1b2861e1089539ebba906c70b011b928a.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-solutions-architect-professional/',
+        description:
+          '此憑證協助取得認證的人員展示在提供複雜問題之複雜解決方案，優化安全性、成本和效能，以及自動化人工程序等方面的進階知識和技能。此認證為組織提供一種方法，協助組織確定和培養具有實作雲端計畫所需關鍵技能的人才。',
+      },
+      {
+        title: 'DevOps Engineer - Professional',
+        level: 'Professional',
+        code: 'DOP-C02',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-DevOps-Engineer-Professional_badge.7492bf660b5351e51f3f8015e4818924294a7e8c.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-devops-engineer-professional',
+        description:
+          'AWS Certified DevOps Engineer - Professional 可展示個人在 AWS 平台上佈建、操作和管理分散式應用程式系統的技術專長，讓其增加自信，並獲得同事、利害關係人和客戶的信任。組織若有這些合格的專業人士，便可迅速交付安全、合規且具有高度可用性和可擴展性的系統。',
+      },
+      {
+        title: 'Advanced Networking - Specialty',
+        level: 'Specialty',
+        code: 'ANS-C01',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Advanced-Networking-Specialty_badge.e09a4e04210dd4dd57ace21344af66986d4b4dc7.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-advanced-networking-specialty/',
+        description:
+          '該憑證可協助組織確定和培養具有實作雲端計劃所需關鍵技能的人才。獲得 AWS Certified Advanced Networking – Specialty，驗證您在為廣泛的 AWS 服務設計和維護網路架構方面所擁有的專業知識。',
+      },
+      {
+        title: 'Machine Learning - Specialty',
+        level: 'Specialty',
+        code: 'MLS-C01',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Machine-Learning-Specialty_badge.e5d66b56552bbf046f905bacaecef6dad0ae7180.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-machine-learning-specialty/',
+        description:
+          '該憑證可協助組織確定和培養具有實作雲端計劃所需關鍵技能的人才。獲得 AWS Certified Machine Learning - Specialty 將驗證您在建置、培訓、調校和部署 AWS 上的機器學習 (ML) 模型方面所擁有的專業知識。',
+      },
+      {
+        title: 'Security - Specialty',
+        level: 'Specialty',
+        code: 'SCS-C02',
+        image:
+          'https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Security-Specialty_badge.75ad1e505c0241bdb321f4c4d9abc51c0109c54f.png',
+        url: 'https://aws.amazon.com/tw/certification/certified-security-specialty/',
+        description:
+          'AWS Certified Security – Specialty 可驗證您在 AWS 雲端建立和實作安全解決方案方面的專業知識。本認證也會證明您已了解專門的資料分類和 AWS 資料保護機制；資料加密方法和實施加密方法的 AWS 機制；以及安全的網際網路通訊協定和實作通訊協定的 AWS 機制。',
+      },
+    ],
+  });
+});
+
+app.use((req, res) => {
+  res.sendStatus(404);
+});
+
+app.use((err, req, res) => {
+  console.error(err.message);
+  res.sendStatus(500);
+});
+
+const server = app.listen(PORT, () => {
+  console.log(`Server is running at ${PORT}...`);
+});
+
+function handle(code) {
+  console.debug(`${code} signal received: closing HTTP server`);
+  server.close(() => {
+    console.debug('HTTP server closed');
+  });
+}
+
+process.on('SIGTERM', handle);
+process.on('SIGINT', handle);
