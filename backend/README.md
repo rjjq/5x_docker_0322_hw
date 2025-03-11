@@ -14,3 +14,4 @@
 
 - GET /
 - GET /api/1.0/certifications
+- GET /api/1.0/courses

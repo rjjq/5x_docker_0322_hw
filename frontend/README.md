@@ -20,3 +20,9 @@ npm run bulid
 ```
 
 After building, Vite will create a `dist` folder. This folder contains the static files that can be served by a web server, such as Nginx.
+
+## Test
+
+- GET /
+- GET /certifications
+- GET /courses

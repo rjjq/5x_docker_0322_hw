@@ -1,38 +1,52 @@
-import { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from 'react-router-dom';
+import Home from './Home';
+import Certifications from './Certifications';
+import Courses from './Courses';
 import './App.css';
-const apiUrl = import.meta.env.VITE_API_URL;
-function App() {
-  const [certifications, setCertifications] = useState([]);
-  async function fetchData() {
-    const response = await fetch(`${apiUrl}/api/1.0/certifications`);
-    const data = await response.json();
-    console.log(data);
-    setCertifications(data.data);
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
 
+function App() {
   return (
-    <>
-      <ol role="list">
-        {certifications.map((certification, index) => (
-          <li
-            style={{ '--i': index }}
-            key={certification.code}
-            className={certification.level}
-          >
-            <h3 className={certification.level}>
-              <div className={'clearfix'}>
-                <img src={certification.image}></img>
-                <p>{certification.title}</p>
-              </div>
-            </h3>
-            <p>{certification.description}</p>
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              首頁
+            </NavLink>
           </li>
-        ))}
-      </ol>
-    </>
+          <li>
+            <NavLink
+              to="/certifications"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              認證
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/courses"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              課程
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/certifications" element={<Certifications />} />
+        <Route path="/courses" element={<Courses />} />
+      </Routes>
+    </Router>
   );
 }
 
