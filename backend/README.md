@@ -1,8 +1,8 @@
 # Backend
 
 - Develop by Express and NodeJS
-  - node:22
-- Server runs at port 3000
+  - node:22-alpine
+- Server runs at port 3002
 
 ## Deploy Steps
 

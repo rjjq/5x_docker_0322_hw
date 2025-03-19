@@ -1,7 +1,7 @@
 # Frontend (React)
 
 - Develop by React and Vite
-- Env: node:22
+- Env: node:22-alpine
 
 ## Develop Steps
 

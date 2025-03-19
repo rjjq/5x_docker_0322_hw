@@ -23,6 +23,10 @@ docker container run ashleylai/workshop:web
 ## Backend
 
 - default port: 3002
+- env:
+  - PORT={api port}
+  - DB_PORT=6379
+  - DB_HOST=localhost
 
 ### Launch
 
