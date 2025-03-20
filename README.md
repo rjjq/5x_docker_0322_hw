@@ -3,6 +3,8 @@
 - Just for practice purposes.
 - The following commands may not work or follow the best practices.
 
+![image](arch.png)
+
 ## Frontend
 
 - default port: 80
