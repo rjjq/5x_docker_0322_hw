@@ -1,0 +1,51 @@
+name: workshop0322
+services:
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        ports:
+            - 5173:5173
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+        environment:
+            - VITE_API_URL=http://localhost:3002
+        depends_on:
+            - backend
+        command: ["npm", "run", "dev", "--", "--host"]
+        networks:
+            - 0322-hw
+
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        ports:
+            - 3002:3002
+        environment:
+            - DB_HOST=database
+            - DB_PORT=6379
+        volumes:
+            - ./backend:/app
+            - /app/src/node_modules
+        working_dir: /app/src
+        command: ["node", "server.js"]
+        depends_on:
+            - database
+        networks:
+            - 0322-hw
+
+    database:
+        image: redis:7.4.2-alpine
+        # ports:
+        #     - 6379:6379
+        volumes:
+            - ./database/data:/data
+        networks:
+            - 0322-hw
+            
+networks:
+    0322-hw:
+        external: true
+    
